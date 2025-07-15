@@ -3,27 +3,22 @@ from PIL import Image
 import base64
 from io import BytesIO
 
-# Page config
-st.set_page_config(page_title="Arif Khan | Portfolio", layout="wide")
+# Load resume PDF for download button
+try:
+    with open("Arif_Khan_Resume.pdf", "rb") as resume_file:
+        resume_bytes = resume_file.read()
 
-def get_pdf_download_button(pdf_path, label):
-    try:
-        with open(pdf_path, "rb") as f:
-            base64_pdf = base64.b64encode(f.read()).decode('utf-8')
-        pdf_display = f'''
-            <div style="position: absolute; top: 10px; left: 10px; z-index: 1000;">
-                <a href="data:application/pdf;base64,{base64_pdf}" download="Arif_Khan_Data_Scientist.pdf">
-                    <button style="padding: 6px 12px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
-                        📄 {label}
-                    </button>
-                </a>
-            </div>
-        '''
-        return pdf_display
-    except FileNotFoundError:
-        return "<p style='color:red;'>Resume file not found.</p>"
-
-st.markdown(get_pdf_download_button("Arif_Khan_Data_Scientist.pdf", "Download My Resume"), unsafe_allow_html=True)
+    # Create 2 columns to shift download button to top-left
+    col1, col2 = st.columns([1, 6])  # Adjust width ratio as needed
+    with col1:
+        st.download_button(
+            label="📄 Download My Resume",
+            data=resume_bytes,
+            file_name="Arif_Khan_Resume.pdf",
+            mime="application/pdf"
+        )
+except FileNotFoundError:
+    st.warning("⚠️ Resume file not found. Make sure 'Arif_Khan_Resume.pdf' is uploaded and spelled correctly.")
 
 
 # Load image
