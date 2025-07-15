@@ -3,20 +3,19 @@ from PIL import Image
 import base64
 from io import BytesIO
 
-def get_pdf_download_button(pdf_path, label):
-    with open(pdf_path, "rb") as f:
-        base64_pdf = base64.b64encode(f.read()).decode('utf-8')
-    pdf_display = f'''
-        <div style="position: absolute; top: 10px; left: 10px; z-index: 1000;">
-            <a href="data:application/pdf;base64,{base64_pdf}" download="Arif_Khan_Data_Scientist.pdf">
-                <button style="padding: 6px 12px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
-                    📄 {label}
-                </button>
-            </a>
-        </div>
-    '''
-    return pdf_display
-st.markdown(get_pdf_download_button("Arif_Khan_Data_Scientist.pdf", "Download My Resume"), unsafe_allow_html=True)
+# Load PDF
+with open("Arif_Khan_Data_Scientist.pdf", "rb") as f:
+    resume = f.read()
+
+# Create layout to push button to top-left
+col1, _ = st.columns([1, 8])
+with col1:
+    st.download_button(
+        label="📄 Download My Resume",
+        data=resume,
+        file_name="Arif_Khan_Data_Scientist.pdf",
+        mime="application/pdf"
+    )
 
 
 # Load image
