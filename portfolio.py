@@ -5,6 +5,7 @@ from io import BytesIO
 
 # Page config
 st.set_page_config(page_title="Arif Khan | Portfolio", layout="wide")
+
 def get_pdf_download_button(pdf_path, label):
     with open(pdf_path, "rb") as f:
         base64_pdf = base64.b64encode(f.read()).decode('utf-8')
@@ -18,8 +19,8 @@ def get_pdf_download_button(pdf_path, label):
         </div>
     '''
     return pdf_display
-
 st.markdown(get_pdf_download_button("Arif_Khan_Data_Scientist.pdf", "Download My Resume"), unsafe_allow_html=True)
+
 # Load image
 img = Image.open("Arif_image.jpg")
 
