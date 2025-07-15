@@ -3,31 +3,42 @@ from PIL import Image
 import base64
 from io import BytesIO
 
+# Set wide layout
+st.set_page_config(page_title="Arif Khan | Portfolio", layout="wide")
+
+# Load and encode PDF
 def get_pdf_download_button(pdf_path, label):
     with open(pdf_path, "rb") as f:
         base64_pdf = base64.b64encode(f.read()).decode('utf-8')
-    pdf_display = f'''
-        <div style="position: absolute; top: 10px; left: 10px; z-index: 1000;">
+    button_html = f'''
+        <div style="display: flex; justify-content: center; margin-bottom: 20px;">
             <a href="data:application/pdf;base64,{base64_pdf}" download="Arif_Khan_Data_Scientist.pdf">
-                <button style="padding: 6px 12px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                <button style="
+                    padding: 8px 20px;
+                    background-color: #4CAF50;
+                    color: white;
+                    border: none;
+                    border-radius: 6px;
+                    cursor: pointer;
+                    font-size: 14px;
+                ">
                     📄 {label}
                 </button>
             </a>
         </div>
     '''
-    return pdf_display
-st.markdown(get_pdf_download_button("Arif_Khan_Data_Scientist.pdf", "Download My Resume"), unsafe_allow_html=True)
+    return button_html
 
+# Display resume button above image
+st.markdown(get_pdf_download_button("Arif_Khan_Data_Scientist.pdf", "Download My Resume"), unsafe_allow_html=True)
 
 # Load image
 img = Image.open("Arif_image.jpg")
-
-# Convert image to base64
 buffered = BytesIO()
 img.save(buffered, format="JPEG")
 img_base64 = base64.b64encode(buffered.getvalue()).decode()
 
-# Display with circular style and base64 inline HTML
+# Show circular image
 st.markdown(f"""
     <style>
         .centered-img {{
@@ -48,7 +59,6 @@ st.markdown(f"""
     <h2 style='text-align: center;'>👨‍💻 Arif Khan</h2>
     <h4 style='text-align: center;'>Aspiring AI/ML Engineer | Data Scientist | Data Analyst</h4>
 """, unsafe_allow_html=True)
-# Resume Download Button (Top-left)
 
 
 
