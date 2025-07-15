@@ -13,7 +13,7 @@ with col1:
     st.download_button(
         label="📄 Download My Resume",
         data=resume,
-        file_name="Arif_Khan_Data_Scientist.pdf",
+        file_name="Arif_khan_Data_Scientist.pdf",
         mime="application/pdf"
     )
 
