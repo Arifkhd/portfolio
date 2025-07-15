@@ -187,3 +187,14 @@ st.markdown("""
         <a href="mailto:arifkhan123@example.com">Email</a>
     </div>
 """, unsafe_allow_html=True)
+
+# Resume Download Button
+with open("Arif_Khan_Data_Scientist.pdf", "rb") as resume_file:
+    resume_bytes = resume_file.read()
+
+st.download_button(
+    label="📄 Download My Resume",
+    data=resume_bytes,
+    file_name="Arif_Khan_Resume.pdf",
+    mime="application/pdf"
+)
