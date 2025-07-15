@@ -7,19 +7,24 @@ from io import BytesIO
 st.set_page_config(page_title="Arif Khan | Portfolio", layout="wide")
 
 def get_pdf_download_button(pdf_path, label):
-    with open(pdf_path, "rb") as f:
-        base64_pdf = base64.b64encode(f.read()).decode('utf-8')
-    pdf_display = f'''
-        <div style="position: absolute; top: 10px; left: 10px; z-index: 1000;">
-            <a href="data:application/pdf;base64,{base64_pdf}" download="Arif_Khan_Data_Scientist.pdf">
-                <button style="padding: 6px 12px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
-                    📄 {label}
-                </button>
-            </a>
-        </div>
-    '''
-    return pdf_display
+    try:
+        with open(pdf_path, "rb") as f:
+            base64_pdf = base64.b64encode(f.read()).decode('utf-8')
+        pdf_display = f'''
+            <div style="position: absolute; top: 10px; left: 10px; z-index: 1000;">
+                <a href="data:application/pdf;base64,{base64_pdf}" download="Arif_Khan_Data_Scientist.pdf">
+                    <button style="padding: 6px 12px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                        📄 {label}
+                    </button>
+                </a>
+            </div>
+        '''
+        return pdf_display
+    except FileNotFoundError:
+        return "<p style='color:red;'>Resume file not found.</p>"
+
 st.markdown(get_pdf_download_button("Arif_Khan_Data_Scientist.pdf", "Download My Resume"), unsafe_allow_html=True)
+
 
 # Load image
 img = Image.open("Arif_image.jpg")
